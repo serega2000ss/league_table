@@ -1,5 +1,6 @@
 require './matches.rb'
 class LeagueTable
+  TEAM_METRICS = [:points, :goals_for, :goals_against, :goal_difference, :wins, :draws, :losses]
 
   def initialize()
     @matches = Matches.new([], self)
@@ -22,6 +23,7 @@ class LeagueTable
 
   def update_team(team, scored, conceded)
     init_team(team)
+
     inc_feields(team, {losses: 1}) if scored < conceded
     inc_feields(team, {points: 1, draws: 1}) if scored == conceded
     inc_feields(team, {points: 3, wins: 1}) if scored > conceded
@@ -30,20 +32,20 @@ class LeagueTable
     inc_feields(team, {goal_difference: (scored - conceded)})
   end
 
+  TEAM_METRICS.each do |metric|
+    define_method("get_#{metric}".to_sym) do |team|
+      team.capitalize!
+      @teams[team]? @teams[team][metric] : 0
+    end
+  end
+
 
   private
 
     def init_team(team)
       unless @teams[team]
-        @teams[team] = {
-          points: 0,
-          goals_for: 0,
-          goals_against: 0,
-          goal_difference: 0,
-          wins: 0,
-          draws: 0,
-          losses: 0
-        }
+        @teams[team] = {}
+        TEAM_METRICS.each{ |tm| @teams[team][tm] = 0 }
       end
     end
 
@@ -53,6 +55,7 @@ class LeagueTable
           @teams[team][feild] += value if @teams[team][feild]
         end
       end
+
     end
 
 end

@@ -17,7 +17,20 @@ require './league_table.rb'
 lt = LeagueTable.new
 
 lt.matches.push("Man Utd 3 - 0 Liverpool")
-lt.matches.push("Man Utd 3 --- 0 Liverpool")
+
+puts lt.get_goals_for("Man Utd")
+puts lt.get_points("Man Utd")
+puts lt.get_points("Liverpool")
+puts lt.get_goal_difference("Liverpool")
+
+lt.matches.push("Liverpool 1 - 1 Man Utd")
+
+puts lt.get_goals_for("Man Utd")
+puts lt.get_points("Man Utd")
+puts lt.get_points("Liverpool")
+puts lt.get_goals_against("Man Utd")
+
+puts lt.get_points("Tottenham")
 
 
 puts 'lt ========================================'
