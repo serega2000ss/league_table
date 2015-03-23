@@ -2,13 +2,11 @@ require './matches.rb'
 class LeagueTable
   TEAM_METRICS = [:points, :goals_for, :goals_against, :goal_difference, :wins, :draws, :losses]
 
+  attr_accessor :matches, :teams
+
   def initialize()
     @matches = Matches.new(self)
     @teams = {}
-  end
-
-  def matches
-    @matches
   end
 
   def update_team_info(match_data)
@@ -27,7 +25,7 @@ class LeagueTable
 
   TEAM_METRICS.each do |metric|
     define_method("get_#{metric}") do |team|
-      team.capitalize!
+      team = team.capitalize.squeeze(' ')
       @teams[team]? @teams[team][metric] : 0
     end
   end
