@@ -1,6 +1,6 @@
 class Matches
-  def initialize(matches, league_table)
-    @matches_list = matches
+  def initialize(league_table)
+    @matches_list = []
     @league_table = league_table
   end
 
@@ -13,6 +13,7 @@ class Matches
 
 
   private
+
     def valid?(match)
       match =~ /\A\D*\s*\d+\s*-{1}\s*\d+\s*\D*\z/
     end
@@ -24,6 +25,7 @@ class Matches
       team2 = match.scan(/\s\D+$/).first.strip.capitalize
       score2 = match.scan(/(\d+)/).last.first.to_i
 
-      { team1 => score1, team2 => score2 }
+      [team1, score1, team2, score2]
     end
+
 end
