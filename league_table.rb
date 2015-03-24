@@ -16,7 +16,7 @@ class LeagueTable
   end
 
   def update_team(team, scored, conceded)
-    init_team(team)
+    init_team team
     inc_feields(team, {losses: 1}) if scored < conceded
     inc_feields(team, {points: 1, draws: 1}) if scored == conceded
     inc_feields(team, {points: 3, wins: 1}) if scored > conceded
@@ -25,7 +25,7 @@ class LeagueTable
 
   TEAM_METRICS.each do |metric|
     define_method("get_#{metric}") do |team|
-      team = team.capitalize.squeeze(' ')
+      team = team.strip.capitalize.squeeze(' ')
       @teams[team]? @teams[team][metric] : 0
     end
   end

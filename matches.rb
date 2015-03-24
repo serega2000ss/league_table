@@ -6,8 +6,8 @@ class Matches
 
   def push(match)
     if valid?(match)
-      @matches_list.push(match)
-      @league_table.update_team_info(parse(match))
+      @matches_list.push match
+      @league_table.update_team_info parse(match)
     end
   end
 
@@ -19,7 +19,7 @@ class Matches
   private
 
     def valid?(match)
-      match =~ /\A\D+\S+\s*\d+\s*-{1}\s*\d+\s*\S+\D+\z/
+      match =~ /\A\S+\D+\s*\d{1,2}\s*-{1}\s*\d{1,2}\s*\D+\S+\z/
     end
 
     def parse(match)
