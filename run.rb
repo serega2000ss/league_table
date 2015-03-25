@@ -42,6 +42,9 @@ describe LeagueTable do
 
       @league_table.matches.push('Man Utd 3 -- 0 Liverpool')
       @league_table.teams.count.must_equal 0
+
+      @league_table.matches.push('Man Utd 3 4 - 0 Liverpool')
+      @league_table.teams.count.must_equal 0
     end
 
     it 'properly transforms teams names' do
